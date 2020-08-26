@@ -80,23 +80,24 @@
                 Contatos registrados
             </div>
 <table>
-    @if (empty($contact->NAME))
+    @if (empty($contact->result))
         {!! "<p>Não há contatos registrados </p>" !!}
     @endif
+    <tr>
     @foreach($contact->result  as $contact)
-        <tr>
-            <td>{{ $contact->NAME }}</td>
+        
+            <td><h1>{{ $contact->NAME }}<h1></td>
 
 
 
 
             <td>
-                <form action="{{ route('updateContact', ['contact' => $contact->ID]) }}" method="post">
+                <form action="{{ route('viewContactUpdate', ['idcontact' => $contact->ID]) }}" method="post">
                     @csrf
                     <input type="hidden" name="contact" value="{{$contact->ID}}">
                     <input type="submit" value="Editar">
                 </form>
-                <form action="{{ route('deleteContact', ['contact' => $contact->ID]) }}" method="post">
+                <form action="{{ route('deleteContact', ['idcontact' => $contact->ID]) }}" method="post">
                     @csrf
 
                     <input type="hidden" name="contact" value="{{$contact->ID}}">
@@ -104,9 +105,9 @@
                 </form>
 
             </td>
-        </tr>
+        
     @endforeach
-
+</tr>
 </table>
 </div>
 </div>

@@ -30,7 +30,7 @@ class ContactController extends Controller
             'fields' => array(
                 "ORIGIN_ID" => $request['cpf'],
                 "NAME" => $request['nome'],
-                "COMPANY_ID" => $request['cnpj_empresa'],
+                "SOURCE_DESCRIPTION" => $request['cnpj_empresa'],
                 "PHONE" => array(array("VALUE" => $request['telefone'], "VALUE_TYPE" => "WORK" )),
                 "EMAIL" => array(array("VALUE" => $request['email'], "VALUE_TYPE" => "WORK" )),
             ),
@@ -54,42 +54,43 @@ class ContactController extends Controller
         }
     }
 
-    //PUT
-    public function update($contact, Request $request)
+    //UPDATE
+    public function update(Request $request)
     {
-        // $queryUrl = 'https://b24-pswfkp.bitrix24.com.br/rest/1/00c4mwudsl6vq8h4/crm.contact.update';
+        $requestUrl = $this->restURL . 'crm.contact.update';
+        $requestBody = http_build_query(array(
+            "ID" => $request['id_contato'],
+            'fields' => array(
+                "ORIGIN_ID" => $request['cpf'],
+                "NAME" => $request['nome'],
+                "COMPANY_ID" => $request['cnpj_empresa'],
+                "PHONE" => array(array("VALUE" => $request['telefone'], "VALUE_TYPE" => "WORK" )),
+                "EMAIL" => array(array("VALUE" => $request['email'], "VALUE_TYPE" => "WORK" )),
+            ),
+        ));
 
-        // $data = http_build_query(array(
-        //     "ID" => $contact,
-        //     "fields" => array(
-        //         "NAME" => $request["nome"]
-        //     ),
-        //     'params' => array("REGISTER_SONET_EVENT" => "Y")
-        // ));
-        // $curl = curl_init();
-        // curl_setopt_array($curl, array(
-        //     CURLOPT_SSL_VERIFYPEER => 0,
-        //     CURLOPT_POST => 1,
-        //     CURLOPT_HEADER => 0,
-        //     CURLOPT_RETURNTRANSFER => 1,
-        //     CURLOPT_URL => $queryUrl,
-        //     CURLOPT_POSTFIELDS => $data,
-        // ));
-        // $result = curl_exec($curl);
-        // curl_close($curl);
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL => $requestUrl,
+            CURLOPT_POSTFIELDS => $requestBody,
+        ));
+        $result = curl_exec($curl);
+        curl_close($curl);
 
-        // $result = json_decode($result, 1);
-
-        // if (array_key_exists('error', $result)) echo "Error saving Lead: ".$result['error_description']."";
-
-        // return redirect()->route('br.listContacts');
-
+        $result = json_decode($result, 1);
+        if (array_key_exists('error', $result)) {
+            echo "Erro ao salvar: " . $result . "";
+        } else {
+            return redirect()->route('contactsIndex');
+        } 
     }
 
     //DELETE
     public function destroy($contact)
     {
-        $requestUrl = $this->restURL . 'crm.company.delete?ID=' . $contact;
+        $requestUrl = $this->restURL . 'crm.contact.delete?ID=' . $contact;
 
         $curl = curl_init();
         curl_setopt_array($curl, array(

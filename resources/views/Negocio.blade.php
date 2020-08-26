@@ -88,10 +88,11 @@
 
     @foreach($deal->result  as $deal)
         <tr>
-            <td><h1>{{ $deal->TITLE }}</h1></td>
-          
+           <h1>Nome: {{ $deal->TITLE }}</h1>
+            <h1>Valor(R$):{{ $deal->OPPORTUNITY }}</h1>
+            <h1>Nome Empresa:{{ $deal->COMMENTS }}</h1>
 
-            <td><h1>{{ $deal->OPPORTUNITY }}</h1></td>
+            
                
                 
         </tr>

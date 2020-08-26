@@ -1,56 +1,61 @@
 <?php
 namespace App\Http\Controllers;
-use App\Aluno;
-use Illuminate\Http\Request;
+
 use GuzzleHttp\Client;
 
-class ViewController extends Controller {
+class ViewController extends Controller
+{
 
-    public function formEditcontact($contact)
+    public function viewUpdateContact($idcontact)
     {
-    //     $url= 'https://b24-pswfkp.bitrix24.com.br/rest/1/00c4mwudsl6vq8h4/crm.contact.get';
-    //     $data = http_build_query(array(
-    //         "ID" => $contact,
-    //     ));
-    //     $ch = curl_init();
-    //     curl_setopt_array($ch, array(
-    //         CURLOPT_SSL_VERIFYPEER => 0,
-    //         CURLOPT_POST => 0,
-    //         CURLOPT_HEADER => 0,
-    //         CURLOPT_RETURNTRANSFER => 1,
-    //         CURLOPT_URL => $url,
-    //         CURLOPT_POSTFIELDS => $data,
-    //     ));
-    //     $resultado = json_decode(curl_exec($ch));
-    //     curl_close($ch);
+        $requestUrl = $this->restURL . 'crm.contact.get';
+        $requestData = http_build_query(array(
+            "ID" => $idcontact,
+        ));
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL => $requestUrl,
+            CURLOPT_POSTFIELDS => $requestData,
+        ));
+        $result = json_decode(curl_exec($curl));
+        curl_close($curl);
 
-    //    return view('editContact', [
-    //         'contact' => $resultado
-    //     ]);
+
+
+
+        $requestUrl = $this->restURL . 'crm.company.list';
+
+        $client = new Client();
+
+        $response = $client->get($requestUrl);
+    
+        return view('editarContato', [
+            'contact' => $result,
+            'company' => json_decode($response->getBody()),
+        ]);
     }
 
-    public function formEditCompany($company)
+    public function viewUpdateCompany($idcompany)
     {
-        // $url= 'https://b24-pswfkp.bitrix24.com.br/rest/1/00c4mwudsl6vq8h4/crm.company.get';
-        // $data = http_build_query(array(
-        //     "ID" => $company,
-        // ));
-        // $ch = curl_init();
-        // curl_setopt_array($ch, array(
-        //     CURLOPT_SSL_VERIFYPEER => 0,
-        //     CURLOPT_POST => 0,
-        //     CURLOPT_HEADER => 0,
-        //     CURLOPT_RETURNTRANSFER => 1,
-        //     CURLOPT_URL => $url,
-        //     CURLOPT_POSTFIELDS => $data,
-        // ));
+        $requestUrl = $this->restURL . 'crm.company.get';
 
-        // $resultado = json_decode(curl_exec($ch));
-        // curl_close($ch);
-
-        // return view('editCompany', [
-        //     'company' => $resultado
-        // ]);
+        $requestData = http_build_query(array(
+            "ID" => $idcompany,
+        ));
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL => $requestUrl,
+            CURLOPT_POSTFIELDS => $requestData,
+        ));
+        $result = json_decode(curl_exec($curl));
+        curl_close($curl);
+        return view('editarEmpresa', [
+            'company' => $result,
+        ]);
     }
 
     public function viewStoreCompany()
@@ -69,7 +74,7 @@ class ViewController extends Controller {
         return view('registrarContato', [
             'company' => json_decode($response->getBody()),
         ]);
-       
+
     }
 
     public function viewStoreDeal()
@@ -84,8 +89,7 @@ class ViewController extends Controller {
         return view('registrarNegocio', [
             'company' => json_decode($response->getBody()),
         ]);
-        
-    }
 
+    }
 
 }

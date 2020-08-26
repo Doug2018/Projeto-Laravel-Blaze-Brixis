@@ -14,7 +14,8 @@ class DealController extends Controller {
             
         $queryData = http_build_query(array(
             'fields' => array(
-            "ORIGIN_ID" => $request['cnpj'],
+            "COMPANY_ID" => $request['id_empresa'],
+            "COMMENTS" => $request['nome_empresa'],
             "TITLE" => $request['nome_negocio'],
             "OPPORTUNITY" => $request['ganho'],
             )
@@ -61,7 +62,7 @@ class DealController extends Controller {
     }
 
     //DELETE
-    public function destroy($deal)
+    public function destroy($iddeal)
     {
        $requestUrl = $this->restURL.'crm.deal.delete?ID='.$deal;
 

@@ -93,24 +93,26 @@
     @csrf
     <table>
     <tr>
-    <td><div >
+    <div>
         <label for=""> Nome do negocio: </label>
        <input type="text" name="nome_negocio" required>
         <span  data-placeholder="NAME"></span>
+        <td></td>
     </div>
-    <td><div >
+    <div >
         <label for="Empresa"> Empresa: </label>
-        <input list="cnpj_empresa" name="cnpj_empresa" required>
-        <datalist id="cnpj_empresa" >
+        <input list="nome_empresa" name="nome_empresa" required>
+        <datalist id="nome_empresa" >
             @foreach($company->result  as $company)
-            <option value="{{ $company->TITLE }}">        
+            <option value="{{ $company->TITLE }}">   
+                <input type="hidden" name="id_empresa" value="{{ $company->ID }}" required>     
             @endforeach
         </datalist>
-    </div></td></tr>
-    <tr> <td><div >
+    </div>
+    <div >
       <label for=""> Valor: </label>
         <input type="number" name="ganho" required>
-    </div></td>
+    </div>
     </table>
     <input type="submit" value="Registrar Negocio">
 

@@ -86,25 +86,25 @@
 
     <div class="content">
         <div class="title m-b-md">
-            Registrar Contato
+            Editar Contato
         </div>
 
-<form action="{{route('contactUpdate')}}" method="put">
+<form action="{{route('contactUpdate')}}" method="post">
     @csrf
     <table>
     <tr> 
         <div>
         <label for="Nome"> Nome: </label>
-        @foreach($contact->result  as $contact)
-        <input type="text" name="nome_empresa" value="{{ $contact->TITLE }}" required>
-        <input type="hidden" name="id_contato" value="{{ $contact->ID }}">
-        @endforeach
+        
+        <input type="text" name="nome_empresa" value="{{ $contact->result->NAME }}" required>
+        <input type="hidden" name="id_contato" value="{{ $contact->result->ID }}">
+
     </div></tr>
     <div>
       <label for="CPF"> CNPJ/CPF: </label>
-      @foreach($contact->result  as $contact)
-        <input type="number" name="cpf" value="{{ $contact->ORIGIN_ID }}" required >
-        @endforeach
+
+        <input type="number" name="cpf" value="{{ $contact->result->ORIGIN_ID }}" required >
+
     </div>
     <div>
         <label for="Empresa"> Empresa: </label>
@@ -114,18 +114,6 @@
             <option value="{{ $company->TITLE }}">        
             @endforeach
         </datalist>
-    </div>
-    <div>
-        <label for="Telefone"> Telefone: </label>
-        @foreach($company->result  as $company)
-        <input type="text" name="telefone" value="{{ $contact->PHONE }}" required>
-        @endforeach
-    </div>
-    <div>
-        <label for="Email"> Email: </label>
-        @foreach($company->result  as $company)
-        <input type="text" name="email" value="{{ $contact->EMAIL }}" required>
-        @endforeach
     </div>
 </tr>
     <input type="submit" value="Atualizar Contato">

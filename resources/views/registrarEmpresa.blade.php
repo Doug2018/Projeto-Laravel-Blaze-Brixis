@@ -108,7 +108,7 @@
         <input type="text" name="telefone" required>
     </div></td></tr>
     <tr><td><div >
-        <label for=""> E-mail: </label>
+        <label for=""> Email: </label>
         <input type="text" name="email" required>
     </div></td>
     </tr>

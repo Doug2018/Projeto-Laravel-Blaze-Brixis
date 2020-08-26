@@ -82,39 +82,31 @@
 
     <div class="content">
         <div class="title m-b-md">
-            Registrar Empresa
+            Editar Empresa
         </div>
+        @csrf
+<form action="{{route('companyUpdate')}}" method="post">
+   
 
-<form action="{{route('companyStore')}}" method="post">
+        
+ <div >
     @csrf
-    <table>
-    <tr>
-    <td><div >
         <label for=""> Nome do responsável: </label>
-       <input type="text" name="nome" required>
+        @csrf
+       <input type="text" name="nome" value="{{ $company->result->ORIGINATOR_ID }}" required>
+       <input type="hidden" name="id_empresa" value="{{ $company->result->ID }}" required>
         <span  data-placeholder="NAME"></span>
     </div>
-    <td><div >
+    <div >
         <label for=""> Nome da empresa: </label>
-        <input type="text" name="nome_empresa" required>
-    </div></td></tr>
-    <tr> <td><div >
+        @csrf
+        <input type="text" name="nome_empresa" value="{{ $company->result->TITLE }}" required>
+    </div>
+    <div >
       <label for=""> CNPJ/CPF: </label>
-        <input type="number" name="cnpj" required>
-    </div></td>
-    <td>
-    <div>
-        <label for=""> Telefone: </label>
-        <input type="text" name="telefone" required>
-    </div></td></tr>
-    <tr><td><div >
-        <label for=""> E-mail: </label>
-        <input type="text" name="email" required>
-    </div></td>
-    </tr>
-    </table>
-    <input type="submit" value="Registrar Empresa">
-
+      @csrf
+        <input type="number" name="cnpj" value="{{ $company->result->ORIGIN_ID }}" required>
+        <div><input type="submit" value="Atualizar Empresa"></div>
 </form>
 </div>
 </div>

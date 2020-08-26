@@ -93,7 +93,7 @@
 
             <td>
                 
-                <form action="{{ route('companyDestroy', ['company' => $company->ID]) }}" method="post">
+                <form action="{{ route('companyDestroy', ['idcompany' => $company->ID]) }}" method="post">
                     @csrf
 
                     <input type="hidden" name="company" value="{{$company->ID}}">
@@ -102,7 +102,7 @@
 
             </td>
             <td>
-            <form action="{{ route('companyUpdate', ['company' => $company->ID]) }}" method="post">
+            <form action="{{ route('viewCompanyUpdate', ['idcompany' => $company->ID]) }}" method="post">
                 @csrf
                 <input type="hidden" name="company" value="{{$company->ID}}">
                 <input type="submit" value="Editar Empresa">

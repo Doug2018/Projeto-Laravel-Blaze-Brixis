@@ -94,15 +94,15 @@
     <table>
     <tr> 
         <div>
-        <label for="Nome"> Nome: </label>
-        <input type="text" name="nome_empresa" required>
+        <label for="nome"> Nome: </label>
+        <input type="text" name="nome" required>
     </div></tr>
     <div>
-      <label for="CPF"> CNPJ/CPF: </label>
-        <input type="number" name="cpf" required>
+      <label for="cpf"> CNPJ/CPF: </label>
+        <input type="text" name="cpf" required>
     </div>
     <div>
-        <label for="Empresa"> Empresa: </label>
+        <label for="cnpj_empresa"> Empresa: </label>
         <input list="cnpj_empresa" name="cnpj_empresa" required>
         <datalist id="cnpj_empresa" >
             @foreach($company->result  as $company)
@@ -111,11 +111,11 @@
         </datalist>
     </div>
     <div>
-        <label for="Telefone"> Telefone: </label>
+        <label for="telefone"> Telefone: </label>
         <input type="text" name="telefone" required>
     </div>
     <div>
-        <label for="Email"> Email: </label>
+        <label for="email"> Email: </label>
         <input type="text" name="email" required>
     </div>
 </tr>

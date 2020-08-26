@@ -17,24 +17,22 @@ Route::get('/', function () {
   return view('welcome');
 });
 
-//mudar os nomes
-
 //Contact
 Route::get('/contatos', 'ContactController@index')->name('contactsIndex');
-Route::put('/contato/{idContato}', 'ContactController@update')->name('updateContact'); //?
-Route::post('/contato', 'ContactController@store')->name('contactStore');
-Route::delete('/contato/{idContato}', 'ContactController@destroy')->name('deleteContact');
+Route::post('/contato', 'ContactController@update')->name('contactUpdate');
+Route::post('/contaton', 'ContactController@store')->name('contactStore');
+Route::post('/contato/{idcontact}', 'ContactController@destroy')->name('deleteContact');
 
 //Company
 Route::get('/empresas', 'CompanyController@index')->name('companiesIndex');
 Route::post('/empresa', 'CompanyController@store')->name('companyStore'); 
-Route::put('/empresa', 'CompanyController@update')->name('companyUpdate'); //?
-Route::post('/empresa/{company}', 'CompanyController@destroy')->name('companyDestroy');
+Route::post('/empresan', 'CompanyController@update')->name('companyUpdate'); //?
+Route::post('/empresa/{idcompany}', 'CompanyController@destroy')->name('companyDestroy');
 
 //Deal
 Route::get('/negocios', 'DealController@index')->name('dealsIndex');
 Route::post('/negocio', 'DealController@store')->name('dealStore'); 
-Route::post('/negocio/{deal}', 'DealController@destroy')->name('dealDestroy');
+Route::post('/negocio/{iddeal}', 'DealController@destroy')->name('dealDestroy');
 
 
 //Views 
@@ -44,6 +42,8 @@ Route::get('/viewNegocio', 'ViewController@viewDeals')->name('viewDeals');
 Route::get('/viewCriarEmpresa', 'ViewController@viewStoreCompany')->name('viewCompanyStore');
 Route::get('/viewCriarContato', 'ViewController@viewStoreContact')->name('viewContactStore');
 Route::get('/viewCriarNegocio', 'ViewController@viewStoreDeal')->name('viewDealStore');
+Route::post('/viewEditarEmpresa/{idcompany}', 'ViewController@viewUpdateCompany')->name('viewCompanyUpdate');
+Route::post('/viewEditarContato/{idcontact}', 'ViewController@viewUpdateContact')->name('viewContactUpdate');
 
 
 

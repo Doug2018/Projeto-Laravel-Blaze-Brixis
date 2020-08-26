@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Str;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
@@ -10,16 +10,13 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         $requestUrl = $this->restURL . 'crm.company.add.json';
-
         $requestBody = http_build_query(array(
             'fields' => array(
-                "ORIGIN_ID" => $request['cnpj'],
-                "TITLE" => $request['nome_empresa'],
-                "HAS_EMAIL" => 'S',
-                "HAS_PHONE" => 'S',
-                "PHONE" => $request['telefone'],
-                "EMAIL" => $request['email'],
-                "ORIGINATOR_ID" => $request['nome'],
+               "ORIGIN_ID" => $request['cnpj'],
+               "TITLE" => $request['nome_empresa'],
+               "PHONE" => array(array("VALUE" => $request['telefone'], "VALUE_TYPE" => "WORK" )),
+               "EMAIL" => array(array("VALUE" => $request['email'], "VALUE_TYPE" => "WORK" )),
+               "ORIGINATOR_ID" => $request['nome'],
             ),
         ));
 
@@ -60,9 +57,9 @@ class CompanyController extends Controller
     }
 
     //DELETE
-    public function destroy($company)
+    public function destroy($idcompany)
     {
-        $requestUrl = $this->restURL . 'crm.company.delete?ID=' . $company;
+        $requestUrl = $this->restURL . 'crm.company.delete?ID=' . $idcompany;
 
         $curl = curl_init();
         curl_setopt_array($curl, array(
@@ -77,9 +74,39 @@ class CompanyController extends Controller
         return redirect()->route('companiesIndex');
 
     }
-
-    public function update($company)
+    //UPDATE
+    public function update(Request $request)
     {
+        $requestUrl = $this->restURL . 'crm.company.update';
 
+        $requestBody = http_build_query(array(
+            "ID" => $request['id_empresa'],
+            'fields' => array(
+                "ORIGIN_ID" => $request['cnpj'],
+                "TITLE" => $request['nome_empresa'],
+                "PHONE" => array(array("VALUE" => $request['telefone'], "VALUE_TYPE" => "WORK" )),
+                "EMAIL" => array(array("VALUE" => $request['email'], "VALUE_TYPE" => "WORK" )),
+                "ORIGINATOR_ID" => $request['nome'],
+            ),
+        ));
+
+
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL => $requestUrl,
+            CURLOPT_POSTFIELDS => $requestBody,
+        ));
+        $result = curl_exec($curl);
+        curl_close($curl);
+
+        $result = json_decode($result, 1);
+
+        if (array_key_exists('error', $result)) {
+            echo "Erro ao salvar: " . $result . "";
+        } else {
+            return redirect()->route('companiesIndex');
+        }
     }
 }
