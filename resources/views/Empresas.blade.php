@@ -72,7 +72,7 @@
 
     <div class="content">
         <div class="links">
-            <a href="/" target="_self">Inicio</a>
+            <a href="index" target="_self">Inicio</a>
             <a href="contatos" target="_self">Contatos</a>
             <a href="negocios" target="_self">Negocios</a>
             <a href="viewCriarEmpresa" target="_self">Registrar uma empresa</a>
