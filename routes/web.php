@@ -44,6 +44,3 @@ Route::get('/viewCriarContato', 'ViewController@viewStoreContact')->name('viewCo
 Route::get('/viewCriarNegocio', 'ViewController@viewStoreDeal')->name('viewDealStore');
 Route::post('/viewEditarEmpresa/{idcompany}', 'ViewController@viewUpdateCompany')->name('viewCompanyUpdate');
 Route::post('/viewEditarContato/{idcontact}', 'ViewController@viewUpdateContact')->name('viewContactUpdate');
-
-
-
