@@ -69,14 +69,14 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Sua Empresa, seus contatos e negócios
+                    Una Pagina pa HxF
                 </div>
 
                 <div class="links">
                  
-                    <a href="contatos" target="_self">Contatos</a>
-                    <a href="empresas" target="_self">Empresas</a>
-                    <a href="negocios" target="_self">Negocios</a>
+                    <a href="acontatos" target="_self">IDs</a>
+                    <a href="aempresas" target="_self">Bugs</a>
+                    <a href="anegocios" target="_self">Bot</a>
                
                 </div>
             </div>
